@@ -1,0 +1,23 @@
+name: Node.js CI
+ 
+on:
+  push:
+    branches: [ node-project ]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+            node-version: '12.x'
+
+      - name: Perform install, build and start commands
+        run: |
+            npm install
+            tsc
+            npm run start --if-present
